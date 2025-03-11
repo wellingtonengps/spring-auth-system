@@ -1,0 +1,24 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: akin_database
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=akin
+      - POSTGRES_USER=akin
+      - POSTGRES_PASSWORD=J1WI81ypCJ
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test:
+        ["CMD-SHELL", "pg_isready -U akin -d akin"]
+      interval: 10s
+      retries: 5
+      start_period: 10s
+
+volumes:
+  postgres_data:
